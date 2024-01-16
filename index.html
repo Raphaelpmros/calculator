@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="assets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Calculator</title>
+</head>
+
+<body class="bg-black">
+    <div id="display" class="row d-flex justify-content-end col-2">
+        <h1 id="display-value" class="justify-content-end text-white">0</h1>
+    </div>
+    <table class="row col-6">
+        <tr id="row1" class="d-flex">
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1" id="reset">C</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1" id="parenteses">&#40; &#41;</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1" id="porcentagem">&#37;</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1" id="divide">&#247;</button></td>
+        </tr>
+
+        <tr id="row2" class="d-flex">
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="sete">7</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="oito">8</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="nove">9</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="multiplica">&#215;</button></td>
+        </tr>
+
+        <tr id="row3" class="d-flex">
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="quatro">4</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id=cinco>5</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="seis">6</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="subtrai">&#45;</button></td>
+        </tr>
+
+        <tr id="row4" class="d-flex">
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="um">1</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="dois">2</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="tres">3</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="soma">&#43;</button></td>
+        </tr>
+
+        <tr id="row5" class="d-flex">
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="negativo"><sup>&#43;</sup>&#47;<sub>&#45;</sub></button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="zero">0</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="virgula">&#44;</button></td>
+            <td><button class="btn btn-circle bg-dark-subtle my-1 mx-1 number" id="resultado">&#61;</button></td>
+        </tr>
+    </table>
+    <script src="src/app.js"></script>
+</body>
+
+</html>

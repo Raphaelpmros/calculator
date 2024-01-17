@@ -1,11 +1,11 @@
-const displayCalculadora = document.querySelector("#display-value");
+const number = document.querySelectorAll(".number");
 const clearButton = document.querySelector("#reset");
-const percentageButton = document.querySelector("#porcentagem");
-const negativeButton = document.querySelector("#negativo");
 const decimalButton = document.querySelector("#virgula");
 const resultButton = document.querySelector("#resultado");
-const number = document.querySelectorAll(".number");
 const operadores = document.querySelectorAll(".operador");
+const negativeButton = document.querySelector("#negativo");
+const percentageButton = document.querySelector("#porcentagem");
+const displayCalculadora = document.querySelector("#display-value");
 
 let currentValue = ' ';
 let operadorClicado = false;

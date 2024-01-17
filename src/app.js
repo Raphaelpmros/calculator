@@ -4,7 +4,6 @@ const decimalButton = document.querySelector("#virgula");
 const resultButton = document.querySelector("#resultado");
 const operadores = document.querySelectorAll(".operador");
 const negativeButton = document.querySelector("#negativo");
-const percentageButton = document.querySelector("#porcentagem");
 const displayCalculadora = document.querySelector("#display-value");
 
 let currentValue = ' ';
@@ -39,6 +38,31 @@ function insert(value) {
     }
 }
 
+window.addEventListener('keydown', function(event) {
+    if (event.key >= '0' && event.key <= '9') {
+      insert(event.key);
+    } else if (event.key === '.') {
+      if (!pontoClicado) {
+        displayCalculadora.innerHTML += ".";
+        pontoClicado = true;
+      }
+    } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+      if (!operadorClicado) {
+        displayCalculadora.innerHTML += event.key;
+        operadores.forEach(button => button.disabled = true);
+        negativeButton.disabled = true;
+        operadorClicado = true;
+        pontoClicado = false;
+        decimalButton.disabled = false;
+      }
+    } else if (event.key === 'Backspace') {
+      backspace();
+    } else if (event.key === 'Enter') {
+      resultado();
+    } else if (event.key === 'Escape' || event.key === 'c') {
+      reset();
+    }
+  });
 
 function reset() {
     displayCalculadora.innerHTML = "";

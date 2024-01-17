@@ -28,8 +28,14 @@ function insert(value) {
     }
 }
 
+
 function reset() {
     displayCalculadora.innerHTML = "";
+    operadores.forEach(button => button.disabled = false);
+    negativeButton.disabled = false;
+    decimalButton.disabled = false;
+    operadorClicado = false;
+    pontoClicado = false;
 }
 
 function backspace() {
@@ -38,6 +44,11 @@ function backspace() {
         let num = displayElement.innerHTML;
         num = num.slice(0, -1);
         displayElement.innerHTML = num;
+        operadores.forEach(button => button.disabled = false);
+        negativeButton.disabled = false;
+        decimalButton.disabled = false;
+        operadorClicado = false;
+        pontoClicado = false;
     }
 }
 

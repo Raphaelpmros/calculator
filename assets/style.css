@@ -1,5 +1,10 @@
-body{
-    background-color: black;
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#body{
+    background-color: rgb(49, 50, 68)
 }
 
 h1{
@@ -7,6 +12,29 @@ h1{
 }
 
 button{
-    background-color: rgb(59, 59, 59);
+    background-color: rgb(27, 27, 27);
     color:antiquewhite;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    
+}
+
+#calculator{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #0c1a21;
+}
+
+#display{
+    background-color: black;
+    width: 15rem;
+    height: 3rem;
+    margin: 1rem;
+    text-align: right;
+    word-wrap: break-word;
+    border-bottom: solid grey;
 }

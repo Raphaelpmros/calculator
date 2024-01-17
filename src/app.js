@@ -8,61 +8,64 @@ const displayCalculadora = document.querySelector("#display-value");
 
 let currentValue = ' ';
 let operadorClicado = false;
-let pontoClicado = false; 
+let pontoClicado = false;
+const currentLength = displayCalculadora.innerHTML.length;
 
 function insert(value) {
-    if (value === ".") {
-        if (!pontoClicado) {
+    if (currentLength < 10) {
+        if (value === ".") {
+            if (!pontoClicado) {
+                displayCalculadora.innerHTML += value;
+                pontoClicado = true;
+            }
+        } else {
             displayCalculadora.innerHTML += value;
-            pontoClicado = true;
         }
-    } else {
-        displayCalculadora.innerHTML += value;
-    }
 
-    if (
-        (value === "+") ||
-        (value === "-") ||
-        (value === "/") ||
-        (value === "*")
-    ) {
-        operadores.forEach(button => button.disabled = true);
-        negativeButton.disabled = true;
-        operadorClicado = true;
-        pontoClicado = false;
-        decimalButton.disabled = false;
-    } else {
-        operadores.forEach(button => button.disabled = false);
-        negativeButton.disabled = false;
-        operadorClicado = false;
+        if (
+            (value === "+") ||
+            (value === "-") ||
+            (value === "/") ||
+            (value === "*")
+        ) {
+            operadores.forEach(button => button.disabled = true);
+            negativeButton.disabled = true;
+            operadorClicado = true;
+            pontoClicado = false;
+            decimalButton.disabled = false;
+        } else {
+            operadores.forEach(button => button.disabled = false);
+            negativeButton.disabled = false;
+            operadorClicado = false;
+        }
     }
 }
 
-window.addEventListener('keydown', function(event) {
+window.addEventListener('keydown', function (event) {
     if (event.key >= '0' && event.key <= '9') {
-      insert(event.key);
+        insert(event.key);
     } else if (event.key === '.') {
-      if (!pontoClicado) {
-        displayCalculadora.innerHTML += ".";
-        pontoClicado = true;
-      }
+        if (!pontoClicado) {
+            displayCalculadora.innerHTML += ".";
+            pontoClicado = true;
+        }
     } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
-      if (!operadorClicado) {
-        displayCalculadora.innerHTML += event.key;
-        operadores.forEach(button => button.disabled = true);
-        negativeButton.disabled = true;
-        operadorClicado = true;
-        pontoClicado = false;
-        decimalButton.disabled = false;
-      }
+        if (!operadorClicado) {
+            displayCalculadora.innerHTML += event.key;
+            operadores.forEach(button => button.disabled = true);
+            negativeButton.disabled = true;
+            operadorClicado = true;
+            pontoClicado = false;
+            decimalButton.disabled = false;
+        }
     } else if (event.key === 'Backspace') {
-      backspace();
+        backspace();
     } else if (event.key === 'Enter') {
-      resultado();
+        resultado();
     } else if (event.key === 'Escape' || event.key === 'c') {
-      reset();
+        reset();
     }
-  });
+});
 
 function reset() {
     displayCalculadora.innerHTML = "";

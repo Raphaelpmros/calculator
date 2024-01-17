@@ -9,9 +9,18 @@ const operadores = document.querySelectorAll(".operador");
 
 let currentValue = ' ';
 let operadorClicado = false;
+let pontoClicado = false; 
 
 function insert(value) {
-    displayCalculadora.innerHTML += value;
+    if (value === ".") {
+        if (!pontoClicado) {
+            displayCalculadora.innerHTML += value;
+            pontoClicado = true;
+        }
+    } else {
+        displayCalculadora.innerHTML += value;
+    }
+
     if (
         (value === "+") ||
         (value === "-") ||
@@ -21,6 +30,8 @@ function insert(value) {
         operadores.forEach(button => button.disabled = true);
         negativeButton.disabled = true;
         operadorClicado = true;
+        pontoClicado = false;
+        decimalButton.disabled = false;
     } else {
         operadores.forEach(button => button.disabled = false);
         negativeButton.disabled = false;

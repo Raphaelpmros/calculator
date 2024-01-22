@@ -14,30 +14,120 @@
 <body id="body">
     <section id="calculator">
         <div id="display" class="row">
-         <h1 id="display-value" class="container-fluid text-white"></h1>
+            <h1 id="display-value" class="container-fluid text-white px-0 my-0"></h1>
         </div>
 
-        <div class="parent">
-            <div class="div1"><button class="btn bg-dark-subtle my-1 mx-1" id="reset" onclick="reset()">C</button></div>
-            <div class="div2"><button class="btn bg-dark-subtle my-1 mx-1" onclick="backspace()"><i class="fas fa-arrow-left"></i></button></div>
-            <div class="div3 operador"><button class="btn bg-dark-subtle my-1 mx-1" id="divide" onclick="insert('/')">&#247;</button></div>
-            <div class="div4 number"><button class="btn bg-dark-subtle my-1 mx-1" id="sete" onclick="insert('7')">7</button></div>
-            <div class="div5 number"><button class="btn bg-dark-subtle my-1 mx-1" id="oito" onclick="insert('8')">8</button></div>
-            <div class="div6 number"><button class="btn bg-dark-subtle my-1 mx-1" id="nove" onclick="insert('9')">9</button></div>
-            <div class="div7 operador"><button class="btn bg-dark-subtle my-1 mx-1 number operador" id="multiplica" onclick="insert('*')">&#215;</button></div>
-            <div class="div8 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="quatro" onclick="insert('4')">4</button></div>
-            <div class="div9 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="cinco" onclick="insert('5')">5</button></div>
-            <div class="div10 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="seis" onclick="insert('6')">6</button></div>
-            <div class="div11 operador"><button class="btn bg-dark-subtle my-1 mx-1 number operador" id="subtrai" onclick="insert('-')">&#45;</button></div>
-            <div class="div12 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="um" onclick="insert('1')">1</button></div>
-            <div class="div13 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="dois" onclick="insert('2')">2</button></div>
-            <div class="div14 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="tres" onclick="insert('3')">3</button></div>
-            <div class="div15 operador"><button class="btn bg-dark-subtle my-1 mx-1 operador" id="soma" onclick="insert('+')">&#43;</button></div>
-            <div class="div16 operador"><button class="btn bg-dark-subtle my-1 mx-1 operador" id="negativo" onclick="negativo()"><sup>&#43;</sup>&#47;<sub>&#45;</sub></button></div>
-            <div class="div17 number"><button class="btn bg-dark-subtle my-1 mx-1 number" id="zero" onclick="insert('0')">0</button></div>
-            <div class="div18 operador"><button class="btn bg-dark-subtle my-1 mx-1 operador" id="virgula" onclick="insert('.')">&#44;</button></div>
-            <div class="div19 operador"><button class="btn bg-dark-subtle my-1 mx-1 operador" id="resultado" onclick="resultado()">&#61;</button></div>
-            </div>
+        <table class="d-flex container-fluid justify-content-between row col-6">
+            <tr id="row1" class="d-flex">
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1" id="reset" onclick="reset()">
+                        C
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1" onclick="backspace()">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 operator" id="divided" onclick="insert('/')">
+                        &#247;
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="row2" class="d-flex">
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="seven" onclick="insert('7')">
+                        7
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="eight" onclick="insert('8')">
+                        8
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="nine" onclick="insert('9')">
+                        9
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number operator" id="times" onclick="insert('*')">
+                        &#215;
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="row3" class="d-flex">
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="four" onclick="insert('4')">
+                        4
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="five" onclick="insert('5')">
+                        5
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="six" onclick="insert('6')">
+                        6
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number operator" id="subtract" onclick="insert('-')">
+                        &#45;
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="row4" class="d-flex">
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="one" onclick="insert('1')">
+                        1
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="two" onclick="insert('2')">
+                        2
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="three" onclick="insert('3')">
+                        3
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 operator" id="plus" onclick="insert('+')">
+                        &#43;
+                    </button>
+                </td>
+            </tr>
+
+            <tr id="row5" class="d-flex">
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 operator" id="negative" onclick="negativo()">
+                        <sup>&#43;</sup>&#47;<sub>&#45;</sub>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 number" id="zero" onclick="insert('0')">
+                        0
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 operator" id="decimal" onclick="insert('.')">
+                        &#44;
+                    </button>
+                </td>
+                <td>
+                    <button class="btn bg-dark-subtle my-1 mx-1 operator" id="result" onclick="resultado()">
+                        &#61;
+                    </button>
+                </td>
+            </tr>
+        </table>
     </section>
     <script src="src/app.js"></script>
 </body>

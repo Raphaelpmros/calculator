@@ -7,9 +7,10 @@ const negativeButton = document.querySelector("#negativo");
 const displayCalculadora = document.querySelector("#display-value");
 
 let currentValue = ' ';
-let operadorClicado = true;
 let pontoClicado = false;
+let operadorClicado = true;
 let currentLength = displayCalculadora.innerHTML.length;
+
 decimalButton.disabled = true
 
 function insert(value) {
@@ -36,6 +37,8 @@ function insert(value) {
             operadorClicado = true;
             pontoClicado = false;
             decimalButton.disabled = true;
+
+            currentLength = displayCalculadora.innerHTML.length;
         } else {
             operadores.forEach(button => button.disabled = false);
             negativeButton.disabled = false;

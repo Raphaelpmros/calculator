@@ -7,12 +7,15 @@ const negativeButton = document.querySelector("#negativo");
 const displayCalculadora = document.querySelector("#display-value");
 
 let currentValue = ' ';
-let operadorClicado = false;
+let operadorClicado = true;
 let pontoClicado = false;
-const currentLength = displayCalculadora.innerHTML.length;
+let currentLength = displayCalculadora.innerHTML.length;
+decimalButton.disabled = true
 
 function insert(value) {
-    if (currentLength < 10) {
+    let expression = displayCalculadora.innerHTML
+
+    if (currentLength < 9) {
         if (value === ".") {
             if (!pontoClicado) {
                 displayCalculadora.innerHTML += value;
@@ -32,31 +35,42 @@ function insert(value) {
             negativeButton.disabled = true;
             operadorClicado = true;
             pontoClicado = false;
-            decimalButton.disabled = false;
+            decimalButton.disabled = true;
         } else {
             operadores.forEach(button => button.disabled = false);
             negativeButton.disabled = false;
             operadorClicado = false;
+            decimalButton.disabled = false
         }
+
+        currentLength = displayCalculadora.innerHTML.length;
     }
 }
 
 window.addEventListener('keydown', function (event) {
-    if (event.key >= '0' && event.key <= '9') {
+    if (
+        (event.key >= '0') && 
+        (event.key <= '9')
+        ) {
         insert(event.key);
     } else if (event.key === '.') {
         if (!pontoClicado) {
             displayCalculadora.innerHTML += ".";
             pontoClicado = true;
         }
-    } else if (event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+    } else if (
+        (event.key === '+') ||
+        (event.key === '-') ||
+        (event.key === '*') ||
+        (event.key === '/')
+        ) {
         if (!operadorClicado) {
             displayCalculadora.innerHTML += event.key;
             operadores.forEach(button => button.disabled = true);
             negativeButton.disabled = true;
             operadorClicado = true;
             pontoClicado = false;
-            decimalButton.disabled = false;
+            decimalButton.disabled = true;
         }
     } else if (event.key === 'Backspace') {
         backspace();
@@ -71,7 +85,7 @@ function reset() {
     displayCalculadora.innerHTML = "";
     operadores.forEach(button => button.disabled = false);
     negativeButton.disabled = false;
-    decimalButton.disabled = false;
+    decimalButton.disabled = true;
     operadorClicado = false;
     pontoClicado = false;
 }
@@ -97,8 +111,22 @@ function resultado() {
 function calculateResult() {
     let displayElement = document.getElementById('display-value');
     if (displayElement) {
-        displayCalculadora.innerHTML = evalExpression(displayElement.innerHTML);
+        let result = evalExpression(displayElement.innerHTML);
+        let formattedResult = formatNumber(result);
+        displayCalculadora.innerHTML = formattedResult;
     }
+}
+
+function formatNumber(number) {
+    let formattedNumber = parseFloat(number).toFixed(2);
+    if (
+        (formattedNumber.includes('.')) &&
+        (formattedNumber.split('.')[1] === '00')
+    ) {
+        formattedNumber = formattedNumber.split('.')[0];
+    }
+
+    return formattedNumber;
 }
 
 function evalExpression(expression) {
@@ -115,14 +143,5 @@ function negativo() {
         let num = displayElement.innerHTML;
         num = num * (-1);
         displayElement.innerHTML = num;
-    }
-}
-
-function porcentagem() {
-    let displayElement = document.getElementById('display-value');
-    if (displayElement) {
-        let currentValue = displayElement.innerHTML;
-        let newValue = eval(currentValue + "* 0.01");
-        displayCalculadora.innerHTML = newValue;
     }
 }

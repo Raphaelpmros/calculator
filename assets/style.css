@@ -35,6 +35,15 @@ button {
 
 }
 
+.result{
+    background-color: rgb(27, 27, 27);
+    color: antiquewhite;
+    border-radius: 50%;
+    width: 6.5rem;
+    height: 3rem;
+    border: none;
+}
+
 #calculator {
     position: absolute;
     top: 50%;

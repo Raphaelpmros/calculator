@@ -6,46 +6,65 @@ const operatorButtons = document.querySelectorAll(".operator");
 const negativeButton = document.querySelector("#negative");
 const displayCalculator = document.querySelector("#display-value");
 
-let currentValue = ' ';
+let currentValue = '';
+let currentInput = '';
 let decimalClicked = false;
-let operatorClicked = true;
-let lastresult = null;
+let operatorClicked = false;
 let currentLength = displayCalculator.innerHTML.length;
 
-decimalButton.disabled = true
+negativeButton.disabled = true;
+operatorButtons.forEach(button => button.disabled = true)
+decimalButton.disabled = false;
 
 function insert(value) {
-        if (value === ".") {
-            if (!decimalClicked && !displayCalculator.innerHTML.endsWith(".")) {
+    if (value === ".") {
+        if (!decimalClicked || operatorClicked) {
+            if (displayCalculator.innerHTML === '') {
+                displayCalculator.innerHTML = '0.';
+            } else if (displayCalculator.innerHTML.slice(-1) === '+' ||
+                displayCalculator.innerHTML.slice(-1) === '-' ||
+                displayCalculator.innerHTML.slice(-1) === '/' ||
+                displayCalculator.innerHTML.slice(-1) === '*') {
+                displayCalculator.innerHTML += '0.';
+            } else {
                 displayCalculator.innerHTML += value;
-                decimalClicked = true;
             }
+            decimalClicked = true;
+            operatorClicked = false;
+        }
+    } else {
+        if (displayCalculator.innerHTML === '') {
+            displayCalculator.innerHTML = value;
         } else {
             displayCalculator.innerHTML += value;
-            decimalClicked = false;
         }
+        decimalClicked = false;
+    }
 
-        if (
-            (value === "+") ||
-            (value === "-") ||
-            (value === "/") ||
-            (value === "*")
-        ) {
-            operatorButtons.forEach(button => button.disabled = true);
-            negativeButton.disabled = true;
-            operatorClicked = true;
-            decimalClicked = false;
-            decimalButton.disabled = true;
-
-            currentLength = displayCalculator.innerHTML.length;
-        } else {
-            operatorButtons.forEach(button => button.disabled = false);
-            negativeButton.disabled = false;
-            operatorClicked = false;
-            decimalButton.disabled = false
-        }
+    if (
+        (value === "+") ||
+        (value === "-") ||
+        (value === "/") ||
+        (value === "*")
+    ) {
+        operatorButtons.forEach(button => button.disabled = true);
+        negativeButton.disabled = true;
+        operatorClicked = true;
+        decimalClicked = false;
+        decimalButton.disabled = false;
+        currentValue.number = currentInput.number;
+        currentInput.number = '';
 
         currentLength = displayCalculator.innerHTML.length;
+    } else {
+        operatorButtons.forEach(button => button.disabled = false);
+        negativeButton.disabled = false;
+        operatorClicked = false;
+        decimalButton.disabled = false;
+        currentValue += Number(value);
+    }
+
+    currentLength = displayCalculator.innerHTML.length;
 }
 
 window.addEventListener('keydown', function (event) {
@@ -87,9 +106,9 @@ window.addEventListener('keydown', function (event) {
 
 function reset() {
     displayCalculator.innerHTML = "";
-    operatorButtons.forEach(button => button.disabled = false);
-    negativeButton.disabled = false;
-    decimalButton.disabled = true;
+    operatorButtons.forEach(button => button.disabled = true);
+    negativeButton.disabled = true;
+    decimalButton.disabled = false;
     operatorClicked = false;
     decimalClicked = false;
 }
@@ -102,13 +121,13 @@ function backspace() {
         displayElement.innerHTML = num;
         operatorButtons.forEach(button => button.disabled = false);
         negativeButton.disabled = false;
-        decimalButton.disabled = false;
+        decimalButton.disabled = true;
         operatorClicked = false;
         decimalClicked = true;
     }
 }
 
-function calculateResult(){
+function calculateResult() {
     let displayElement = document.getElementById('display-value');
     if (displayElement) {
         if (displayElement.innerHTML.trim() === '') {
@@ -142,11 +161,11 @@ function evalExpression(expression) {
     }
 }
 
-function negativo() {
+function negative() {
     let displayElement = document.getElementById('display-value');
     if (displayElement) {
-        let num = displayElement.innerHTML;
+        let num = currentValue;
         num = num * (-1);
-        displayElement.innerHTML = num;
+        currentValue = num;
     }
 }

@@ -7,9 +7,12 @@ const displayCalculator = document.querySelector("#display-value");
 
 let lastResult = '';
 let currentValue = '';
+let currentOperator = '';
 let decimalClicked = false;
 let operatorClicked = false;
-let teste = '';
+
+operatorButtons.forEach(button => button.disabled = true);
+
 
 function insert(value) {
     if (value === ".") {
@@ -30,7 +33,7 @@ function insert(value) {
             (value === "/") ||
             (value === "*")
         ) {
-            teste = value;
+            currentOperator = value;
             operatorButtons.forEach(button => button.disabled = true);
             operatorClicked = true;
             decimalClicked = false;
@@ -73,11 +76,11 @@ window.addEventListener('keydown', function (event) {
         (event.key === '*') ||
         (event.key === '/')
     ) {
-        teste = event.key
+        currentOperator = event.key
         currentValue = '';
         if (!operatorClicked) {
             displayCalculator.innerHTML += event.key;
-            operatorButtons.forEach(button => button.disabled = true); // Desativa os botões de operadores
+            operatorButtons.forEach(button => button.disabled = true);
             operatorClicked = true;
             decimalClicked = false;
             decimalButton.disabled = true;
@@ -100,6 +103,10 @@ function reset() {
     decimalButton.disabled = false;
     operatorClicked = false;
     decimalClicked = false;
+    currentOperator = '';
+    currentValue = '';
+    currentLength = '';
+    lastResult = '';
 }
 
 function backspace() {
@@ -114,16 +121,22 @@ function backspace() {
             decimalClicked = false;
         }
 
-        operatorButtons.forEach(button => button.disabled = false);
+        if (num.slice(-1).match(/[\+\-\*\/]/)) {
+            operatorButtons.forEach(button => button.disabled = true);
+        }
+
         operatorClicked = false;
     }
 }
 
 function calculateResult() {
     let displayElement = document.getElementById('display-value');
+    if (currentOperator === '' && lastResult === ''){
+        return displayElement;
+    }
     if (displayElement) {
         if (!hasOperator(displayCalculator.innerHTML)) {
-            let result = evalExpression(lastResult+teste+currentValue);
+            let result = evalExpression(lastResult+currentOperator+currentValue);
             let formattedResult = formatNumber(result);
             displayCalculator.innerHTML = formattedResult;
             lastResult = formattedResult;

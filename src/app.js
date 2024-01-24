@@ -1,16 +1,15 @@
 const number = document.querySelectorAll(".number");
 const clearButton = document.querySelector("#reset");
-const decimalButton = document.querySelector("#decimal");
 const resultButton = document.querySelector("#result");
+const decimalButton = document.querySelector("#decimal");
 const operatorButtons = document.querySelectorAll(".operator");
-const negativeButton = document.querySelector("#negative");
 const displayCalculator = document.querySelector("#display-value");
 
 let lastResult = '';
 let currentValue = '';
-let currentInput = '';
 let decimalClicked = false;
 let operatorClicked = false;
+let teste = '';
 
 function insert(value) {
     if (value === ".") {
@@ -31,18 +30,15 @@ function insert(value) {
             (value === "/") ||
             (value === "*")
         ) {
+            teste = value;
             operatorButtons.forEach(button => button.disabled = true);
-            negativeButton.disabled = true;
             operatorClicked = true;
             decimalClicked = false;
             decimalButton.disabled = false;
             currentValue = '';
-            currentInput.number = '';
-
             currentLength = displayCalculator.innerHTML.length;
         } else {
             operatorButtons.forEach(button => button.disabled = false);
-            negativeButton.disabled = false;
             operatorClicked = false;
         }
     }
@@ -58,13 +54,16 @@ window.addEventListener('keydown', function (event) {
         if (!decimalClicked) {
             if (displayCalculator.innerHTML === '') {
                 displayCalculator.innerHTML = '0.';
+                currentValue += event.key;
             } else if (displayCalculator.innerHTML.slice(-1) === '+' ||
                 displayCalculator.innerHTML.slice(-1) === '-' ||
                 displayCalculator.innerHTML.slice(-1) === '/' ||
                 displayCalculator.innerHTML.slice(-1) === '*') {
                 displayCalculator.innerHTML += '0.';
+                currentValue += event.key;
             } else {
                 displayCalculator.innerHTML += ".";
+                currentValue += event.key;
             }
             decimalClicked = true;
         }
@@ -74,10 +73,11 @@ window.addEventListener('keydown', function (event) {
         (event.key === '*') ||
         (event.key === '/')
     ) {
+        teste = event.key
+        currentValue = '';
         if (!operatorClicked) {
             displayCalculator.innerHTML += event.key;
             operatorButtons.forEach(button => button.disabled = true); // Desativa os botões de operadores
-            negativeButton.disabled = true;
             operatorClicked = true;
             decimalClicked = false;
             decimalButton.disabled = true;
@@ -97,7 +97,6 @@ window.addEventListener('keydown', function (event) {
 function reset() {
     displayCalculator.innerHTML = "";
     operatorButtons.forEach(button => button.disabled = true);
-    negativeButton.disabled = true;
     decimalButton.disabled = false;
     operatorClicked = false;
     decimalClicked = false;
@@ -116,7 +115,6 @@ function backspace() {
         }
 
         operatorButtons.forEach(button => button.disabled = false);
-        negativeButton.disabled = false;
         operatorClicked = false;
     }
 }
@@ -124,24 +122,24 @@ function backspace() {
 function calculateResult() {
     let displayElement = document.getElementById('display-value');
     if (displayElement) {
-        if (displayElement.innerHTML.trim() === '') {
-            displayCalculator.innerHTML = lastResult || '';
+        if (!hasOperator(displayCalculator.innerHTML)) {
+            let result = evalExpression(lastResult+teste+currentValue);
+            let formattedResult = formatNumber(result);
+            displayCalculator.innerHTML = formattedResult;
+            lastResult = formattedResult;
         } else {
             let result = evalExpression(displayElement.innerHTML);
             let formattedResult = formatNumber(result);
             displayCalculator.innerHTML = formattedResult;
             lastResult = formattedResult;
         }
-
-        currentInput = { number: parseFloat(displayCalculator.innerHTML) };
-        currentValue = displayCalculator.innerHTML;
         operatorClicked = false;
         decimalClicked = false;
     }
     operatorButtons.forEach(button => button.disabled = false);
-    negativeButton.disabled = false;
     decimalButton.disabled = true;
 }
+
 
 function formatNumber(number) {
     let formattedNumber = parseFloat(number).toFixed(2);
@@ -163,11 +161,12 @@ function evalExpression(expression) {
     }
 }
 
-function negative() {
-    let displayElement = document.getElementById('display-value');
-    if (displayElement) {
-        let num = currentValue;
-        num = num * (-1);
-        currentValue = num;
+function hasOperator(str) {
+    const operators = ['+', '-', '*', '/'];
+    for (let i = 0; i < str.length; i++) {
+        if (operators.includes(str[i])) {
+            return true;
+        }
     }
+    return false;
 }

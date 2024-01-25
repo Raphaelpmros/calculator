@@ -13,7 +13,6 @@ let operatorClicked = false;
 
 operatorButtons.forEach(button => button.disabled = true);
 
-
 function insert(value) {
     if (value === ".") {
         if (!decimalClicked && !currentValue.includes('.')) {
@@ -88,6 +87,7 @@ window.addEventListener('keydown', function (event) {
     } else if (event.key === 'Backspace') {
         backspace();
     } else if (event.key === 'Enter') {
+        event.preventDefault();
         calculateResult();
     } else if (
         (event.key === 'Escape') ||
@@ -123,9 +123,11 @@ function backspace() {
 
         if (num.slice(-1).match(/[\+\-\*\/]/)) {
             operatorButtons.forEach(button => button.disabled = true);
+            operatorClicked = true;
+        } else {
+            operatorButtons.forEach(button => button.disabled = false);
+            operatorClicked = false;
         }
-
-        operatorClicked = false;
     }
 }
 
